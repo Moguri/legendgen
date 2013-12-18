@@ -1,0 +1,17 @@
+{% extends "cgen/base.html" %}
+
+{% block content %}
+	<h1>Characters</h1>
+	
+	{% if char_list %}
+		<div class="list-group">
+		{% for char in char_list %}
+			<a class="list-group-item" href="{% url 'cgen:detail' char.id %}">{{char.cname}}</a></li>
+		{% endfor %}
+		</div>
+	{% else %}
+		<p>No characters are available.</p>
+	{% endif %}
+
+	<a href="{% url 'cgen:new' %}" class="btn btn-primary">Create New Character</a>
+{% endblock %}
