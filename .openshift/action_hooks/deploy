@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source ${OPENSHIFT_HOMEDIR}python/virtenv/venv/bin/activate
+
+export PYTHON_EGG_CACHE=${OPENSHIFT_HOMEDIR}python/virtenv/venv/lib/python3.3/site-packages
+
+echo "Executing 'python ${OPENSHIFT_REPO_DIR}legendgen/manage.py syncdb --noinput'"
+python "$OPENSHIFT_REPO_DIR"legendgen/manage.py syncdb --noinput
+
+echo "Executing 'python ${OPENSHIFT_REPO_DIR}legendgen/manage.py collectstatic --noinput -v0'"
+python "$OPENSHIFT_REPO_DIR"legendgen/manage.py collectstatic --noinput -v0
