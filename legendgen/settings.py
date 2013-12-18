@@ -66,7 +66,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(PROJECT_DIR, 'db.sqlite3'),
+            'NAME': os.path.join(BASE_DIR, 'sqlite3.db'),
         }
     }
 
@@ -93,5 +93,5 @@ if IN_OPENSHIFT:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL.strip("/"))
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'legendgen', 'static'),
 )
