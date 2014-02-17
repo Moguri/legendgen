@@ -9,6 +9,13 @@ ATT_VALUES = (
         ('CHA', 'Charisma'),
 )
 
+SIZE_VALUES = (
+        ('S', 'Small'),
+        ('M', 'Medium'),
+        ('L', 'Large'),
+)
+
+
 class ClassChassis(models.Model):
     BAB_VALUES = (
         ('G', 'Good'),
@@ -25,10 +32,20 @@ class ClassChassis(models.Model):
     def __str__(self):
         return self.name
 
+
+class Race(models.Model):
+    name = models.CharField(max_length=200)
+    size = models.CharField(max_length=1, choices=SIZE_VALUES, default='M')
+
+    def __str__(self):
+        return self.name
+
+
 class Character(models.Model):
     cname = models.CharField(max_length=200)
     pname = models.CharField(max_length=200)
     class_chassis = models.ForeignKey(ClassChassis)
+    race = models.ForeignKey(Race)
 
     str = models.SmallIntegerField(default=10)
     con = models.SmallIntegerField(default=10)

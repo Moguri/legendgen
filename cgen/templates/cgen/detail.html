@@ -24,6 +24,14 @@
 				<label for="pname">Player Name</label>
 				<input type="text" class="form-control" id="pname" name="pname" value="{{char.pname}}">
 			</div>
+            <div class="form-group">
+                <label for="race">Race</label>
+                <select class="form-control" name="race">
+					{% for race in races%}
+					<option value="{{race.id}}" {% if race.id == char.race.id %} selected {% endif %}>{{race}}</option>
+					{% endfor %}
+				</select>
+            </div>
 			<div class="form-group">
 				<label for="class_chassis">Class Chassis</label>
 				<select class="form-control" name="class_chassis">

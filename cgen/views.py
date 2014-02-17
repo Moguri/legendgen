@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 
 from collections import OrderedDict
 
-from cgen.models import Character, ClassChassis, ATT_VALUES
+from cgen.models import Character, ClassChassis, Race, ATT_VALUES
 
 def index(request):
     clist = Character.objects.all()
@@ -19,11 +19,13 @@ def detail(request, cid):
     return render(request, 'cgen/detail.html', {
 		'char': char,
 		'classes': ClassChassis.objects.all(),
+        'races': Race.objects.all(),
 		'attribs': attribs,
 	})
 
 def new(request):
-    char = Character(class_chassis = ClassChassis.objects.all()[:1].get())
+    char = Character(class_chassis=ClassChassis.objects.all()[:1].get(),
+                     race=Race.objects.all()[:1].get())
     char.save()
     return HttpResponseRedirect(reverse('cgen:detail', args=(char.id,)))
 
