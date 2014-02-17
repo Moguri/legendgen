@@ -9,5 +9,6 @@ urlpatterns = patterns('',
         url(r'^(?P<cid>\d+)/delete$', views.delete, name='delete'),
         url(r'^(?P<cid>\d+)/save/$', views.save, name='save'),
         url(r'^get_class/(?P<ccid>\d+)$', views.get_class, name='get_class'),
+        url(r'^get_race/(?P<rid>\d+)$', views.get_race, name='get_race'),
 )
 

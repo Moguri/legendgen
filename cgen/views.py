@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.core.urlresolvers import reverse
 from django.core import serializers
+import json
 
 from collections import OrderedDict
 
@@ -65,3 +66,9 @@ def save(request, cid):
 def get_class(request, ccid):
     cc = get_object_or_404(ClassChassis, pk=ccid)
     return HttpResponse(serializers.serialize('json', (cc,)))
+
+def get_race(request, rid):
+    race = get_object_or_404(Race, pk=rid)
+    srace = json.loads(serializers.serialize('json', (race,)))
+    srace[0]['fields']['size_display'] = race.get_size_display()
+    return HttpResponse(json.dumps(srace))

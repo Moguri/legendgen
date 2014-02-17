@@ -28,12 +28,15 @@
             <h2>Race</h2>
             <div class="form-group">
                 <label for="race" class="sr-only">Race</label>
-                <select class="form-control" name="race">
+                <select class="form-control" name="race" id="race">
 					{% for race in races%}
 					<option value="{{race.id}}" {% if race.id == char.race.id %} selected {% endif %}>{{race}}</option>
 					{% endfor %}
 				</select>
             </div>
+            <p>
+               Size: <span id="race-size">{{char.race.get_size_display}}</span>
+            </p>
 
             <h2>Class</h2>
 			<div class="form-group">
@@ -88,6 +91,15 @@
 
 		$('.att-input').each(update_attr_mod_func);
 		$('.att-input').change(update_attr_mod_func);
+
+		$('#race').change(function() {
+		    $.ajax({
+		        url: "{% url 'cgen:get_race' 999 %}".replace('999', $('#race option:selected').attr('value')),
+		        dataType: "json"
+		    }).done(function(msg) {
+		        $('#race-size').text(msg[0].fields.size_display);
+		    })
+		});
 
 		$('#class_chassis').change(function() {
             $.ajax({
