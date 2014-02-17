@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.core.urlresolvers import reverse
+from django.core import serializers
 
 from collections import OrderedDict
 
 from cgen.models import Character, ClassChassis, Race, ATT_VALUES
+
 
 def index(request):
     clist = Character.objects.all()
@@ -60,4 +62,6 @@ def save(request, cid):
 
     return HttpResponseRedirect(reverse('cgen:detail', args=(char.id,)))
     
-
+def get_class(request, ccid):
+    cc = get_object_or_404(ClassChassis, pk=ccid)
+    return HttpResponse(serializers.serialize('json', (cc,)))

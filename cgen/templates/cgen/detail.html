@@ -4,7 +4,6 @@
 
 <ul class="nav nav-tabs">
 	<li class="active"><a href="#detail" data-toggle="tab">Details</a></li>
-	<li><a href="#attributes" data-toggle="tab">Attributes</a></li>
 	<li><a href="#todo" data-toggle="tab">Tracks</a></li>
 	<li><a href="#todo" data-toggle="tab">Feats</a></li>
 	<li><a href="#todo" data-toggle="tab">Items</a></li>
@@ -14,8 +13,9 @@
 <form class="form-horizontal" role="form" action="{% url 'cgen:save' char.id %}" method="post">
 	{% csrf_token %}
 
-	<div class="tab-content">
+	<div class="tab-content well">
 		<div id="detail" class="tab-pane fade in active">
+            <h2>Name</h2>
 			<div class="form-group">
 				<label for="cname">Character Name</label>
 				<input type="text" class="form-control" id="cname" name="cname" value="{{char.cname}}">
@@ -24,34 +24,36 @@
 				<label for="pname">Player Name</label>
 				<input type="text" class="form-control" id="pname" name="pname" value="{{char.pname}}">
 			</div>
+
+            <h2>Race</h2>
             <div class="form-group">
-                <label for="race">Race</label>
+                <label for="race" class="sr-only">Race</label>
                 <select class="form-control" name="race">
 					{% for race in races%}
 					<option value="{{race.id}}" {% if race.id == char.race.id %} selected {% endif %}>{{race}}</option>
 					{% endfor %}
 				</select>
             </div>
+
+            <h2>Class</h2>
 			<div class="form-group">
-				<label for="class_chassis">Class Chassis</label>
-				<select class="form-control" name="class_chassis">
+				<label for="class_chassis" class="sr-only">Class Chassis</label>
+				<select class="form-control" name="class_chassis" id="class_chassis">
 					{% for cc in classes %}
 					<option value="{{cc.id}}" {% if cc.id == char.class_chassis.id %} selected {% endif %}>{{cc}}</option>
 					{% endfor %}
 				</select>
 			</div>
+            <div class="form-group">
+                <label for="kdm" class="control-label">KDM:</label>
+                <span class="form-control-static" id="kdm">{{char.class_chassis.kdm}}</span>
+            </div>
+            <div class="form-group">
+                <label for="kom" class="control-label">KOM:</label>
+                <span class="form-control-static" id="kom">{{char.class_chassis.kom}}</span>
+            </div>
 
-		</div>
-
-		<div id="attributes" class="tab-pane fade">
-			<div class="form-group">
-				<label for="kdm" class="control-label">KDM:</label>
-				<span class="form-control-static">{{char.class_chassis.kdm}}</span>
-			</div>
-			<div class="form-group">
-				<label for="kom" class="control-label">KOM:</label>
-				<span class="form-control-static">{{char.class_chassis.kom}}</span>
-			</div>
+            <h2>Attributes</h2>
 			{% for k, v in attribs.items %}
 			<div class="form-group">
 				<label for="{{k}}" class="col-sm-2 control-label">{{v.0}}</label>
@@ -79,12 +81,22 @@
 {% block script %}
 <script>
 	$(document).ready(function() {
-		$('.att-input').each(function(i, v) {
+		$('.att-input').each(function() {
 			$('#' + $(this).attr('name') + 'mod').text(~~(($(this).val() - 10) / 2));
 		});
 
 		$('.att-input').change(function() {
 			$('#' + $(this).attr('name') + 'mod').text(~~(($(this).val() - 10) / 2));
+		});
+
+		$('#class_chassis').change(function() {
+            $.ajax({
+                url: "{% url 'cgen:get_class' 999 %}".replace('999', $('#class_chassis option:selected').attr('value')),
+                dataType: "json"
+            }).done(function(msg) {
+                $('#kdm').text(msg[0].fields.kdm);
+                $('#kom').text(msg[0].fields.kom);
+            })
 		});
 	});
 </script>
