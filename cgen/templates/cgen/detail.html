@@ -81,13 +81,13 @@
 {% block script %}
 <script>
 	$(document).ready(function() {
-		$('.att-input').each(function() {
-			$('#' + $(this).attr('name') + 'mod').text(~~(($(this).val() - 10) / 2));
-		});
+		update_attr_mod_func = function() {
+			var modifier = ~~(($(this).val() - 10) / 2);
+			$('#' + $(this).attr('name') + 'mod').text(((modifier >= 0) ? "+" : "") + modifier);
+		};
 
-		$('.att-input').change(function() {
-			$('#' + $(this).attr('name') + 'mod').text(~~(($(this).val() - 10) / 2));
-		});
+		$('.att-input').each(update_attr_mod_func);
+		$('.att-input').change(update_attr_mod_func);
 
 		$('#class_chassis').change(function() {
             $.ajax({
