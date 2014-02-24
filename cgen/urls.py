@@ -1,4 +1,6 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
+from cgen.api import register_api
+
 
 from cgen import views
 
@@ -8,7 +10,6 @@ urlpatterns = patterns('',
         url(r'^new/$', views.new, name='new'),
         url(r'^(?P<cid>\d+)/delete$', views.delete, name='delete'),
         url(r'^(?P<cid>\d+)/save/$', views.save, name='save'),
-        url(r'^get_class/(?P<ccid>\d+)$', views.get_class, name='get_class'),
-        url(r'^get_race/(?P<rid>\d+)$', views.get_race, name='get_race'),
+        url(r'^api/', include(register_api().urls), name='api'),
 )
 

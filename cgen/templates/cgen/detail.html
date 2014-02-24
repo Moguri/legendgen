@@ -94,20 +94,20 @@
 
 		$('#race').change(function() {
 		    $.ajax({
-		        url: "{% url 'cgen:get_race' 999 %}".replace('999', $('#race option:selected').attr('value')),
+		        url: "{% url 'cgen:api_dispatch_list' api_name='v1' resource_name='race' %}" + $('#race option:selected').attr('value') + "/?format=json",
 		        dataType: "json"
 		    }).done(function(msg) {
-		        $('#race-size').text(msg[0].fields.size_display);
+		        $('#race-size').text(msg.size);
 		    })
 		});
 
 		$('#class_chassis').change(function() {
             $.ajax({
-                url: "{% url 'cgen:get_class' 999 %}".replace('999', $('#class_chassis option:selected').attr('value')),
+                url: "{% url 'cgen:api_dispatch_list' api_name='v1' resource_name='classchassis' %}" + $('#class_chassis option:selected').attr('value') + "/?format=json",
                 dataType: "json"
             }).done(function(msg) {
-                $('#kdm').text(msg[0].fields.kdm);
-                $('#kom').text(msg[0].fields.kom);
+                $('#kdm').text(msg.kdm);
+                $('#kom').text(msg.kom);
             })
 		});
 	});

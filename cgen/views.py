@@ -62,13 +62,3 @@ def save(request, cid):
     char.save()
 
     return HttpResponseRedirect(reverse('cgen:detail', args=(char.id,)))
-    
-def get_class(request, ccid):
-    cc = get_object_or_404(ClassChassis, pk=ccid)
-    return HttpResponse(serializers.serialize('json', (cc,)))
-
-def get_race(request, rid):
-    race = get_object_or_404(Race, pk=rid)
-    srace = json.loads(serializers.serialize('json', (race,)))
-    srace[0]['fields']['size_display'] = race.get_size_display()
-    return HttpResponse(json.dumps(srace))
