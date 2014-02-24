@@ -1,0 +1,46 @@
+{
+"races":[
+	{
+		"Name":"Dwarf",
+		"Attrib": "+con+int-cha",
+		"Size": "medium",
+		"Special": "vision:'darkvision',skill:'Engineering'",
+		"Bonus": "'Livers Need Not Apply'|'Slow and Steady'|'Rune Magicc'"
+	},
+	{
+		"Name":"Elf",
+		"Attrib": "+dex+wis-con",
+		"Size": "medium",
+		"Special": "skill:'Nature',string:'+1 on saving throws against [Mind-affecting] effects'",
+		"Bonus": "'By Will Sustained'|'Elven War Dance'|'Mystic Healter'"
+	},
+	{
+		"Name":"Gnome",
+		"Attrib": "+con+cha-str",
+		"Size": "small",
+		"Special": "skill:'Diplomacy',vision:'darkvision'",
+		"Bonus": "'Chatty Bugger'|'Summon Mote'|'The Bigger They Are'"
+	},
+	{
+		"Name":"Halfling",
+		"Attrib": "+dex",
+		"Size": "small",
+		"Special": "saves:'Will',speed:30",
+		"Bonus": "any"
+	},
+	{
+		"Name":"Human",
+		"Attrib": "+any",
+		"Size": "medium",
+		"Special": "skill:any,attack:+1|ac:+1|savingthrow:+1",
+		"Bonus": "any"
+	},
+	{
+		"Name":"Orc",
+		"Attrib": "+str+con-cha",
+		"Size": "medium",
+		"Special": "vision:'darkvision',skill:'Athletics'",
+		"Bonus": "'Reckless Strike'|'To Iron Married'|'Cataphract'"
+	}
+]
+}
